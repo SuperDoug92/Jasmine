@@ -18,13 +18,13 @@ $(function() {
         function testForUrl(feed){
           it('has defined url', function(){
             expect(feed.url).toBeDefined();
-            expect(feed.url).not.toBe("");
+            expect(feed.url).not.toBe('');
           });
         }
         function testForName(feed){
           it('has defined url', function(){
             expect(feed.name).toBeDefined();
-            expect(feed.name).not.toBe("");
+            expect(feed.name).not.toBe('');
           });
         }
         allFeeds.forEach(function(feed){
@@ -39,12 +39,11 @@ $(function() {
       });
 
       it('changes visibility when clicked', function(){
-        var boolean = $("body").hasClass("menu-hidden");
         $(".menu-icon-link").trigger('click');
-        expect($("body").hasClass("menu-hidden")).not.toEqual(boolean);
+        expect($("body").hasClass("menu-hidden")).toEqual(false);
 
         $(".menu-icon-link").trigger('click');
-        expect($("body").hasClass("menu-hidden")).toEqual(boolean);
+        expect($("body").hasClass("menu-hidden")).toEqual(true);
       });
 
     });
@@ -52,30 +51,27 @@ $(function() {
     describe('Initial Entries',function(){
 
       beforeEach(function(done){
-        loadFeed(0,function(){
-          done();
-        });
+        loadFeed(0,done);
       });
 
       it('contains at least one entry',function(done){
-        expect($(".feed").children(".entry-link").length).toBeGreaterThan(0);
+        expect($(".feed").find(".entry").length).toBeGreaterThan(0);
         done();
       });
-
     });
 
-     describe('New Feed Selection',function(){
+    describe('New Feed Selection',function(){
 
       var feed, feed1;
 
-      loadFeed(0, function() {
-          feed = $('feed').html();
-          done();
-      });
-
-      loadFeed(1, function(done) {
-          feed1 = $('feed').html();
-          done();
+      beforeEach(function(done){
+        loadFeed(0, function() {
+            feed = $('feed').html();
+            loadFeed(1, function() {
+                feed1 = $('feed').html();
+                done();
+            });
+        });
       });
 
       it('new feed has different content', function(done) {
