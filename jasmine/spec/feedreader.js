@@ -22,7 +22,7 @@ $(function() {
           });
         }
         function testForName(feed){
-          it('has defined url', function(){
+          it('has defined name', function(){
             expect(feed.name).toBeDefined();
             expect(feed.name).not.toBe('');
           });
@@ -54,9 +54,8 @@ $(function() {
         loadFeed(0,done);
       });
 
-      it('contains at least one entry',function(done){
+      it('contains at least one entry',function(){
         expect($(".feed").find(".entry").length).toBeGreaterThan(0);
-        done();
       });
     });
 
@@ -66,17 +65,16 @@ $(function() {
 
       beforeEach(function(done){
         loadFeed(0, function() {
-            feed = $('feed').html();
+            feed = $('.feed').html();
             loadFeed(1, function() {
-                feed1 = $('feed').html();
+                feed1 = $('.feed').html();
                 done();
             });
         });
       });
 
-      it('new feed has different content', function(done) {
-          expect($(feed)).not.toEqual(feed1);
-          done();
+      it('new feed has different content', function() {
+          expect(feed).not.toEqual(feed1);
       });
      });
 
